@@ -12,14 +12,39 @@ public class ContactService {
             switch (choice) {
                 case "a":
 
-                    System.out.print("ENETR CONTACT NAME : ");
-                    String name = sc.next();
-                    System.out.print("ENTER CONTACT NUMBER : ");
-                    int number = sc.nextInt();
-                    model.Contact.addContact(name.toLowerCase(), number, map);
-                    isRunning = false;
+                    boolean isCorrectInput = true;
+                    while (isCorrectInput) {
+                        // name
+                        System.out.print("ENETR CONTACT NAME : ");
+                        String name = sc.nextLine();
+                        boolean isValid = utils.InputValidator.isValideName(name);
+                        if (!isValid) {
+                            continue;
+                        }
 
+                        // number
+                        System.out.print("ENTER CONTACT NUMBER : ");
+                        String number = sc.nextLine();
+
+                        boolean isValidNum = utils.InputValidator.isNumaric(number);
+                        if (!isValidNum) {
+                            continue;
+                        }
+
+                        try {
+                            int parsedIntNumber = Integer.parseInt(number);
+
+                            model.Contact.addContact(name.toLowerCase(), parsedIntNumber, map);
+                            isRunning = false;
+
+                        } catch (Exception e) {
+
+                        }
+
+                        isCorrectInput = false;
+                    }
                     break;
+
                 case "v":
                     System.out.println("-------ALL CONTACT LIST------");
                     model.Contact.viewContact(map);
@@ -32,13 +57,6 @@ public class ContactService {
                     model.Contact.searchContact(sc, contact, map);
                     isRunning = false;
                     break;
-                // case " u":
-                //     System.out.print("ENTER  NAME TO  UPDATE CONTACT :");
-                //     String uName = sc.nextLine().toUpperCase().toLowerCase();
-                //     model.Contact. updateContact(sc, uName, map);
-                //     isRunning = false;
-                //     break;
-
                 case "d":
                     System.out.println("ENTER  NAME TO DELETE CONTECT.");
                     String dContact = sc.nextLine();
@@ -46,10 +64,16 @@ public class ContactService {
                     isRunning = false;
                     break;
 
-                default:
-                    System.out.println("INVALIDE CHOICE SELECTED.TRY AGAIN");
+                case "e":
+                    isRunning = false;
                     break;
+
+                default:
+                    System.out.println("<<<<<INVALIDE CHOICE SELECTED.TRY AGAIN>>>>>>");
+
+                    isRunning = false;
             }
+
         }
     }
 }

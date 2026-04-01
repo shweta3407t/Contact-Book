@@ -2,8 +2,6 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
-// import java.util.Iterator;
-// import java.util.Map;
 import java.util.Scanner;
 
 public class Contact {
@@ -23,7 +21,6 @@ public class Contact {
 
     }
 
-
     public static void searchContact(Scanner sc, String contact, HashMap<String, Integer> map) {
         if (map.containsKey(contact)) {
             int value = map.get(contact);
@@ -35,13 +32,15 @@ public class Contact {
 
             if (uChoice.equalsIgnoreCase("u")) {
 
-                System.out.print("ENTER UPDATED NAME : ");
-                String updateName = sc.next();
+                System.out.println("ENTER UPDATED NAME : ");
+                String updateName = sc.nextLine();
 
-                System.out.print("ENTER UPDATED CONTACT NUMBER : ");
-                String updateNumber = sc.next();
+                System.out.println("ENTER UPDATED CONTACT NUMBER : ");
+                String updateNumber = sc.nextLine();
 
-                if ((!updateName.isEmpty() || !updateName.isBlank())
+                boolean isValide = utils.InputValidator.isValideUpdatedName(updateName, updateNumber);
+                if (isValide) {
+                    if ((!updateName.isEmpty() || !updateName.isBlank())
                         && (!updateNumber.isEmpty() || !updateNumber.isBlank())) {
 
                     int parsedUpdateNumber = Integer.parseInt(updateNumber);
@@ -54,16 +53,19 @@ public class Contact {
                 } else if (!updateNumber.isEmpty() || !updateNumber.isBlank()) {
                     int parsedUpdateNumber = Integer.parseInt(updateNumber);
                     updateContact(sc, contact, null, parsedUpdateNumber, map);
+                }else{
+                    System.out.println("---NOTHING TO UPDATE---");
                 }
 
+                 }
+
+                 
             } else {
                 return;
             }
         } else {
-            System.out.println("CONTACT NOT FOUND.ENTER A TO ADD NEW CONTACT OR E TO EXIT SEARCH .");
+            System.out.println("----CONTACT NOT FOUND.ENTER A TO ADD NEW CONTACT OR E TO EXIT SEARCH-----");
             System.out.print("YOUR CHOICE : ");
-
-            
 
             String wantToAdd = sc.next();
 
@@ -82,14 +84,14 @@ public class Contact {
     public static void updateContact(Scanner sc, String contact, String updateName, Integer updateNumber,
             HashMap<String, Integer> map) {
 
-            int oldContact = map.get(contact);
+        int oldContact = map.get(contact);
 
-            if (updateName != null) {
-                map.put(updateName, oldContact);
-                map.remove(contact);
-            } else if (updateNumber != null) {
-                map.replace(contact, updateNumber);
-            }
+        if (updateName != null) {
+            map.put(updateName, oldContact);
+            map.remove(contact);
+        } else if (updateNumber != null) {
+            map.replace(contact, updateNumber);
+        }
         System.out.println("-----NAME : " + updateName + "AND NUMBER : " + updateNumber + " SUCESSFULLY UPDATED.-----");
     }
 
