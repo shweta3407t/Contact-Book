@@ -28,21 +28,20 @@ public class Contact {
             System.out.println("NAME : " + contact + " AND CONTACT NUMBER : " + value);
 
             System.out.print("ENTER U TO UPDATE CONTACT OR E TO EXIT SEARCH.");
-            String uChoice = sc.next();
+            String uChoice = sc.nextLine();
 
             if (uChoice.equalsIgnoreCase("u")) {
+                sc.nextLine();
 
-                System.out.println("ENTER UPDATED NAME : ");
+                System.out.print("ENTER UPDATED NAME (LEAVE BLANK TO SKIP) : ");
                 String updateName = sc.nextLine();
-
-                System.out.println("ENTER UPDATED CONTACT NUMBER : ");
+ 
+                System.out.print("ENTER UPDATED CONTACT NUMBER (LEAVE BLANK TO SKIP) : ");
                 String updateNumber = sc.nextLine();
-
-                boolean isValide = utils.InputValidator.isValideUpdatedName(updateName, updateNumber);
-                if (isValide) {
-                    if ((!updateName.isEmpty() || !updateName.isBlank())
-                        && (!updateNumber.isEmpty() || !updateNumber.isBlank())) {
-
+ 
+                if ((!updateName.isEmpty() && !updateName.isBlank())
+                        && (!updateNumber.isEmpty() && !updateNumber.isBlank())) {
+                    // update both
                     int parsedUpdateNumber = Integer.parseInt(updateNumber);
                     updateContact(sc, contact, updateName, parsedUpdateNumber, map);
 
@@ -51,15 +50,13 @@ public class Contact {
                     updateContact(sc, contact, updateName, null, map);
 
                 } else if (!updateNumber.isEmpty() || !updateNumber.isBlank()) {
+                    // update number only
                     int parsedUpdateNumber = Integer.parseInt(updateNumber);
                     updateContact(sc, contact, null, parsedUpdateNumber, map);
-                }else{
+                } else {
                     System.out.println("---NOTHING TO UPDATE---");
                 }
 
-                 }
-
-                 
             } else {
                 return;
             }
@@ -97,7 +94,11 @@ public class Contact {
 
     public static void deleteContact(String contact, HashMap<String, Integer> map) {
         map.remove(contact);
+        if(map.remove(contact, map)){
         System.out.println("----" + contact + " CONTACT DELETED.----");
+        }else{
+            System.out.println("-----CONTACT NOT FOUND----");
+        }
     }
 
 }

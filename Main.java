@@ -9,6 +9,7 @@ public class Main {
         while (true) {
 
             System.out.println("""
+                    ----CONTACT BOOK-----
                     ENTER A TO ADD CONTACT.
                     ENTER V TO VIEW CONTACT LIST.
                     ENTER S TO SEARCH AND UPDATE CONTACT.

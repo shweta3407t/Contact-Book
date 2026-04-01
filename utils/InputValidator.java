@@ -40,7 +40,7 @@ public class InputValidator {
 
 
 
-    public static boolean isValideUpdatedName(String updateName,String updateNumber){
+    public static boolean isValideUpdatedName(String updateName){
         if(updateName==null || updateName.isEmpty() ){
             return  true;
         }
