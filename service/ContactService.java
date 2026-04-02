@@ -3,9 +3,11 @@ package service;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import model.Contact;
+
 public class ContactService {
 
-    public static void controlContact(String choice, HashMap<String, Integer> map) {
+    public static void controlContact(String choice, HashMap<String, Contact> map) {
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
         while (isRunning) {
@@ -14,6 +16,7 @@ public class ContactService {
 
                     boolean isCorrectInput = true;
                     while (isCorrectInput) {
+
                         // name
                         System.out.print("ENETR CONTACT NAME : ");
                         String name = sc.nextLine();
@@ -21,27 +24,40 @@ public class ContactService {
                         if (!isValid) {
                             continue;
                         }
+                        if (map.containsKey(name)) {
+                            System.out.println("--CONTACT ALREADY EXIST----");
+                        }
 
-                        // number
+                        // phoneNumber
                         System.out.print("ENTER CONTACT NUMBER : ");
-                        String number = sc.nextLine();
+                        String phoneNumber = sc.nextLine();
 
-                        boolean isValidNum = utils.InputValidator.isNumaric(number);
-                        if (!isValidNum) {
+                        // boolean isValidNum = utils.InputValidator.isNumaric(phoneNumber);
+                        // if (!isValidNum) {
+                        // continue;
+                        // }
+                        // int parsedIntNumber = Integer.parseInt(phoneNumber);
+
+                        // email
+                        System.out.print("ENTER EMAIL : ");
+                        String eMail = sc.nextLine();
+
+                        boolean isValide = utils.InputValidator.isValideEmail(eMail);
+                        if (!isValide) {
+                            System.out.println("-----EMAIL SHOULD CONTAIN @ AND .com----TRY AGAIN----");
                             continue;
                         }
 
-                        try {
-                            int parsedIntNumber = Integer.parseInt(number);
+                        Contact c = new Contact(phoneNumber, eMail);
 
-                            model.Contact.addContact(name.toLowerCase(), parsedIntNumber, map);
-                            isRunning = false;
+                        map.put(name, c);
 
-                        } catch (Exception e) {
+                        model.Contact.addContact(name.toLowerCase(), phoneNumber, eMail, map);
 
-                        }
+                        isRunning = false;
 
                         isCorrectInput = false;
+
                     }
                     break;
 

@@ -15,7 +15,7 @@ public class InputValidator {
 
         }
 
-        return true;
+        return  false;
     }
 
     public static boolean isNumaric(String number) {
@@ -40,10 +40,12 @@ public class InputValidator {
 
 
 
-    public static boolean isValideUpdatedName(String updateName){
-        if(updateName==null || updateName.isEmpty() ){
-            return  true;
-        }
-        return false;
+    public static boolean isValideEmail(String  email){
+        if( email==null ||  email.isEmpty() ){
+
+            System.out.println("-----CONTACT  EMAIL SHOULD NOT BE EMPTY-----\n -----TRY AGAIN-----");
+            return   false;
+        }else if(email.contains("@")&& email.contains( ".com"))return true;
+         return false;
     }
 }
