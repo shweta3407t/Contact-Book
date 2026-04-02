@@ -7,7 +7,7 @@ import model.Contact;
 
 public class ContactService {
 
-    public static void controlContact(String choice, HashMap<String, Contact> map) {
+    public static void controlContact(HashMap<String, Contact> map,String choice) {
         Scanner sc = new Scanner(System.in);
         boolean isRunning = true;
         while (isRunning) {
@@ -51,7 +51,7 @@ public class ContactService {
 
                         map.put(name, c);
 
-                        model.Contact.addContact(name.toLowerCase(), phoneNumber, eMail, map);
+                        model.Contact.addContact(map,name.toLowerCase(), phoneNumber, eMail);
 
                         isRunning = false;
 
@@ -69,13 +69,13 @@ public class ContactService {
                 case "s":
                     System.out.print("ENTER  NAME TO SEARCH CONTACT :");
                     String contact = sc.next().toLowerCase();
-                    model.Contact.searchContact(sc, contact, map);
+                    model.Contact.searchContact(map,sc, contact);
                     isRunning = false;
                     break;
                 case "d":
                     System.out.println("ENTER  NAME TO DELETE CONTECT.");
                     String dContact = sc.nextLine();
-                    model.Contact.deleteContact(dContact, map);
+                    model.Contact.deleteContact(map,dContact);
                     isRunning = false;
                     break;
 

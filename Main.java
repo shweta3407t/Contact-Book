@@ -31,7 +31,7 @@ public class Main {
             System.out.print("YOUR CHOICE : ");
             String choice = sc.nextLine().toLowerCase();
 
-            service.ContactService.controlContact(choice, map);
+            service.ContactService.controlContact(map,choice);
             // continue;
 
         }

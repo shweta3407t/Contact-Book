@@ -59,9 +59,6 @@ public static boolean isValideUpdateName(String name){
          if (name.matches("[a-zA-Z]+$")) {
 
                 return true;
-            } else {
-                System.out.println("-----CONTACT  NAME SHOULD BE IN CHARACTER ONLY----");
-
             }
             return false;
     }
@@ -74,13 +71,14 @@ public static boolean isValideUpdateName(String name){
             System.out.println("------CONTACT NUMBER SHOULD BE NUMBER ONLY-----\n -----TRY AGAIN----- ");
             return false;
 
-        } else if (number.length() < 10 || number.length() > 10) {
+        } else 
+            if (number.length() < 10 || number.length() > 10) {
             System.out.println("-----CONTACT NUMBER SHOULD BE OF 10 DIGIT.---- \n -----TRY AGAIN-----");
             return false;
 
         }
 
-        return true;
+        return  false;
 
     }
 
