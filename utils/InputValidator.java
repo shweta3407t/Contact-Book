@@ -6,16 +6,20 @@ public class InputValidator {
             if (name.isEmpty() || name.isBlank()) {
                 System.out.println("-----CONTACT  NAME SHOULD NOT BE EMPTY-----");
                 return false;
-            } else if (!name.matches("[a-zA-Z]+$")) {
+            }else
+            if (name.matches("[a-zA-Z]+$")) {
+
+                return true;
+            } else {
                 System.out.println("-----CONTACT  NAME SHOULD BE IN CHARACTER ONLY----");
-                return false;
+
             }
 
         } catch (Exception e) {
 
         }
 
-        return  false;
+        return false;
     }
 
     public static boolean isNumaric(String number) {
@@ -28,24 +32,62 @@ public class InputValidator {
             System.out.println("------CONTACT NUMBER SHOULD BE NUMBER ONLY-----\n -----TRY AGAIN----- ");
             return false;
 
-        } else if (number.length() < 10 || number.length() > 10 ) {
+        } else if (number.length() < 10 || number.length() > 10) {
             System.out.println("-----CONTACT NUMBER SHOULD BE OF 10 DIGIT.---- \n -----TRY AGAIN-----");
-            return   false;
+            return false;
 
         }
 
-        return   true;
+        return true;
 
+    }
+     
+
+  
+
+    public static boolean isValideEmail(String email) {
+        if (email == null || email.isEmpty()) {
+
+            System.out.println("-----CONTACT  EMAIL SHOULD NOT BE EMPTY-----\n -----TRY AGAIN-----");
+            return false;
+        } else if (email.contains("@") && email.contains(".com"))
+            return true;
+        return false;
+    }
+
+public static boolean isValideUpdateName(String name){
+         if (name.matches("[a-zA-Z]+$")) {
+
+                return true;
+            } else {
+                System.out.println("-----CONTACT  NAME SHOULD BE IN CHARACTER ONLY----");
+
+            }
+            return false;
     }
 
 
 
-    public static boolean isValideEmail(String  email){
-        if( email==null ||  email.isEmpty() ){
 
-            System.out.println("-----CONTACT  EMAIL SHOULD NOT BE EMPTY-----\n -----TRY AGAIN-----");
-            return   false;
-        }else if(email.contains("@")&& email.contains( ".com"))return true;
-         return false;
+    public static boolean isValideUpdateNumber(String number) {
+    if (!number.matches("\\d+")) {
+            System.out.println("------CONTACT NUMBER SHOULD BE NUMBER ONLY-----\n -----TRY AGAIN----- ");
+            return false;
+
+        } else if (number.length() < 10 || number.length() > 10) {
+            System.out.println("-----CONTACT NUMBER SHOULD BE OF 10 DIGIT.---- \n -----TRY AGAIN-----");
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+    public static boolean isValideUpdateEmail(String email) {
+  
+         if (email.contains("@") && email.contains(".com"))
+            return true;
+        return false;
     }
 }

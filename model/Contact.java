@@ -14,14 +14,12 @@ public class Contact {
         this.eMail = eMail;
     }
 
-    public  void display(String name){
-        System.out.println("NAME : "+name);
-        System.out.println("NUMBER : "+phoneNumber);
-        System.out.println("EMAIL : "+eMail);
+    public void display(String name) {
+        System.out.println("NAME : " + name);
+        System.out.println("NUMBER : " + phoneNumber);
+        System.out.println("EMAIL : " + eMail);
         System.out.println("---------------------------");
     }
-
-     
 
     public static void addContact(String name, String phoneNumber, String email, HashMap<String, Contact> map) {
         Contact c = new Contact(phoneNumber, email);
@@ -31,90 +29,124 @@ public class Contact {
     }
 
     public static void viewContact(HashMap<String, Contact> map) {
-        if(map.isEmpty()){ 
+        if (map.isEmpty()) {
             System.out.println("-----NO CONTACT ADDED-----");
 
         } else {
 
-        for (Map.Entry<String, Contact> e : map.entrySet()) {
-            // Contact c=new Contact(null, null);
+            for (Map.Entry<String, Contact> e : map.entrySet()) {
 
+                e.getValue().display(e.getKey());
 
-            e.getValue().display(e.getKey());
- 
-            
-
-             
-
-             
-            
-        }}
+            }
+        }
 
     }
 
     public static void searchContact(Scanner sc, String searchContact, HashMap<String, Contact> map) {
         if (map.containsKey(searchContact)) {
-             System.out.println("-------CONTACT FOUND.-----");
-            map.get(searchContact).display(searchContact);;
-            
+            System.out.println("-------CONTACT FOUND.-----");
+            map.get(searchContact).display(searchContact);
 
             System.out.print("ENTER U TO UPDATE CONTACT OR E TO EXIT SEARCH.");
             String uChoice = sc.next();
 
-            // is loop me jaa hi nahi raha hai
+            boolean isCorrectInput = true;
+            while (isCorrectInput) {
 
-            if (uChoice.equalsIgnoreCase("u")) {
-                sc.nextLine();
+                if (uChoice.equalsIgnoreCase("u")) {
 
-                System.out.print("ENTER UPDATED NAME (LEAVE BLANK TO SKIP) : ");
-                String updateName = sc.nextLine();
+                    System.out.print("ENTER UPDATED NAME (LEAVE BLANK TO SKIP) : ");
+                    String updateName = sc.nextLine();
+                    boolean isValidName = utils.InputValidator.isValideUpdateName(updateName);
+                    if (!isValidName) {
+                        continue;
+                    }
 
-                System.out.print("ENTER UPDATED CONTACT NUMBER (LEAVE BLANK TO SKIP) : ");
-                String updateNumber = sc.nextLine();
+                    System.out.println();
 
-                System.out.print("ENTER UPDATED CONTACT NUMBER (LEAVE BLANK TO SKIP) : ");
-                String updateEmail = sc.nextLine();
+                    System.out.print("ENTER UPDATED CONTACT NUMBER (LEAVE BLANK TO SKIP) : ");
+                    String updateNumber = sc.nextLine();
+                    boolean isValidNum = utils.InputValidator.isValideUpdateNumber(updateNumber);
+                    if (!isValidNum) {
+                        continue;
+                    }
 
-                if ((!updateName.isEmpty() && !updateName.isBlank())
-                        && (!updateNumber.isEmpty() && !updateNumber.isBlank())) {
-                    // update both
-                    updateContact(sc, searchContact, updateName, updateNumber, updateEmail, map);
+                    System.out.print("ENTER UPDATED EMAIL (LEAVE BLANK TO SKIP) : ");
+                    String updateEmail = sc.nextLine();
+                    boolean isValidEmail = utils.InputValidator.isValideUpdateEmail(updateEmail);
+                    if (isValidEmail) {
+                        continue;
+                    }
 
-                } else if (!updateName.isEmpty() || !updateName.isBlank()) {
-                    // update name only
-                    updateContactName(sc, searchContact, updateName, map);
+                    if ((updateName.isBlank() && !updateNumber.isBlank() && !updateEmail.isBlank())) {
 
-                } else if (!updateNumber.isEmpty() || !updateNumber.isBlank()) {
-                    // update phoneNumber only
-                    // int parsedUpdateNumber = Integer.parseInt(updateNumber);
-                    updateContactNumber(sc, searchContact, updateNumber, map);
-                } else if (!updateEmail.isEmpty() || !updateEmail.isBlank()) {
-                    // update email only
-                    updateContactNumber(sc, searchContact, updateNumber, map);
+                        // update all
+                        updateContact(sc, searchContact, updateName, updateNumber, updateEmail, map);
+
+                    } else if (!updateName.isEmpty() || !updateName.isBlank()) {
+
+ 
+                        // update name only
+                        updateContactName(sc, searchContact, updateName, map);
+
+                    } else if (!updateNumber.isEmpty() || !updateNumber.isBlank()) {
+
+ 
+                        // update phoneNumber only
+                        updateContactNumber(sc, searchContact, updateNumber, map);
+                    } else if (!updateEmail.isEmpty() || !updateEmail.isBlank()) {
+
+ 
+                        // update email only
+                        updateContactNumber(sc, searchContact, updateNumber, map);
+                    } else {
+                        System.out.println("---NOTHING TO UPDATE---");
+                    }
+
+                    isCorrectInput = false;
+
                 } else {
-                    System.out.println("---NOTHING TO UPDATE---");
-                }
 
-            } else {
-                return;
+                    return;
+                }
             }
+
         } else {
             System.out.println("----CONTACT NOT FOUND.ENTER A TO ADD NEW CONTACT OR E TO EXIT SEARCH-----");
             System.out.print("YOUR CHOICE : ");
 
             String wantToAdd = sc.next();
 
-            if (wantToAdd.equalsIgnoreCase("a")) {
-                System.out.print("ENTER NAME : ");
-                String newName = sc.next();
+            boolean isCorrectInput = true;
+            while (isCorrectInput) {
+                if (wantToAdd.equalsIgnoreCase("a")) {
+                    // name
+                    System.out.println("ENTER NAME : " + searchContact);
 
-                System.out.println("ENTER NUMBER FOR " + newName + " searchContact");
-                String newNumber = sc.nextLine();
+                    // number
+                    System.out.print("ENTER NUMBER FOR " + searchContact + " : ");
+                    String newNumber = sc.nextLine();
+                    boolean isValidNum = utils.InputValidator.isNumaric(newNumber);
+                    if (!isValidNum) {
+                        continue;
+                    }
 
-                System.out.println("ENTER EMAIL FOR" + newName + " : ");
-                String newEmail = sc.nextLine();
+                    // email
+                    System.out.print("ENTER EMAIL FOR " + searchContact + " : ");
+                    String newEmail = sc.nextLine();
+                    boolean isValide = utils.InputValidator.isValideEmail(newEmail);
+                    if (!isValide) {
+                        System.out.println("-----EMAIL SHOULD CONTAIN @ AND .com----TRY AGAIN----");
+                        continue;
+                    }
+                    System.out.println();
 
-                addContact(newName, newNumber, newEmail, map);
+                    addContact(searchContact, newNumber, newEmail, map);
+                    isCorrectInput = false;
+                } else {
+                    return;
+                }
             }
         }
     }
@@ -133,38 +165,41 @@ public class Contact {
         }
     }
 
-    public static void updateContactName(Scanner sc, String searchContact, String updateName,
-            HashMap<String, Contact> map) {
+    public static void updateContactName(Scanner sc, String searchContact, String
+    updateName,
+    HashMap<String, Contact> map) {
 
-        if (map.containsKey(searchContact)) {
-            Contact c = new Contact(null, null);
-            map.replace(updateName, c);
-            System.out.println("-----NAME : " + updateName
-                    + " SUCESSFULLY UPDATED.-----");
-        }
+    if (map.containsKey(searchContact)) {
+    Contact c = new Contact(null, null);
+    map.put(updateName, c);
+    System.out.println("-----NAME : " + updateName
+    + " SUCESSFULLY UPDATED.-----");
+    }
 
     }
 
-    public static void updateContactNumber(Scanner sc, String searchContact, String updateNumber,
-            HashMap<String, Contact> map) {
-        if (map.containsKey(searchContact)) {
-            Contact c = new Contact(null, updateNumber);
-            map.replace(updateNumber, c);
-            System.out.println("-----\n NUMBER : " + updateNumber
-                    + " SUCESSFULLY UPDATED.-----");
+    public static void updateContactNumber(Scanner sc, String searchContact,
+    String updateNumber,
+    HashMap<String, Contact> map) {
+    if (map.containsKey(searchContact)) {
+    Contact c = new Contact(null, updateNumber);
+    map.put(updateNumber, c);
+    System.out.println("-----\n NUMBER : " + updateNumber
+    + " SUCESSFULLY UPDATED.-----");
 
-        }
+    }
     }
 
-    public static void updateContactEmail(Scanner sc, String searchContact, String updateEmail,
-            HashMap<String, Contact> map) {
-        if (map.containsKey(searchContact)) {
-            Contact c = new Contact(null, updateEmail);
-            map.replace(updateEmail, c);
-            System.out.println("-----\n EMAIL : " + updateEmail
-                    + " SUCESSFULLY UPDATED.-----");
+    public static void updateContactEmail(Scanner sc, String searchContact,
+    String updateEmail,
+    HashMap<String, Contact> map) {
+    if (map.containsKey(searchContact)) {
+    Contact c = new Contact(null, updateEmail);
+    map.put(updateEmail, c);
+    System.out.println("-----\n EMAIL : " + updateEmail
+    + " SUCESSFULLY UPDATED.-----");
 
-        }
+    }
     }
 
     public static void deleteContact(String searchContact, HashMap<String, Contact> map) {

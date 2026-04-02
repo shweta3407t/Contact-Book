@@ -18,7 +18,7 @@ public class ContactService {
                     while (isCorrectInput) {
 
                         // name
-                        System.out.print("ENETR CONTACT NAME : ");
+                        System.out.print("ENETR NAME : ");
                         String name = sc.nextLine();
                         boolean isValid = utils.InputValidator.isValideName(name);
                         if (!isValid) {
@@ -29,15 +29,14 @@ public class ContactService {
                         }
 
                         // phoneNumber
-                        System.out.print("ENTER CONTACT NUMBER : ");
+                        System.out.print("ENTER NUMBER : ");
                         String phoneNumber = sc.nextLine();
 
-                        // boolean isValidNum = utils.InputValidator.isNumaric(phoneNumber);
-                        // if (!isValidNum) {
-                        // continue;
-                        // }
-                        // int parsedIntNumber = Integer.parseInt(phoneNumber);
-
+                        boolean isValidNum = utils.InputValidator.isNumaric(phoneNumber);
+                        if (!isValidNum) {
+                        continue;
+                        }
+ 
                         // email
                         System.out.print("ENTER EMAIL : ");
                         String eMail = sc.nextLine();
@@ -81,10 +80,9 @@ public class ContactService {
                     break;
 
                 case "e":
-                    isRunning = false;
-                    break;
-
-                default:
+                    System.out.println("<<<<<<<EXITING CONTACT BOOK>>>>>>>");
+                     System.exit(0);
+                 default:
                     System.out.println("<<<<<INVALIDE CHOICE SELECTED.TRY AGAIN>>>>>>");
 
                     isRunning = false;
