@@ -78,7 +78,7 @@ public static boolean isValideUpdateName(String name){
 
         }
 
-        return  false;
+        return   true;
 
     }
 

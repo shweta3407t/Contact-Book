@@ -1,4 +1,4 @@
-package model;
+package service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,42 +76,39 @@ public class Contact {
                         updateContact(map, sc, searchContact, updateName, updateNumber, updateEmail);
 
                     }
-                    if (!updateName.isEmpty() || !updateName.isBlank()) {
+                    if (!updateName.isEmpty() && !updateName.isBlank()) {
+                        boolean isValidName = utils.InputValidator.isValideUpdateName(updateName);
+                        if (!isValidName) {
+                            continue;
+                        }
 
                         // update name only
                         updateContactName(map, sc, searchContact, updateName);
 
                     }
-                    if (!updateNumber.isEmpty() || !updateNumber.isBlank()) {
+                    if (!updateNumber.isEmpty() && !updateNumber.isBlank()) {
+                        boolean isValidNum = utils.InputValidator.isValideUpdateNumber(updateNumber);
+                        if (isValidNum) {
+                        continue;
+                        }
 
                         // update phoneNumber only
                         updateContactNumber(map, sc, searchContact, updateNumber);
                     }
-                    if (!updateEmail.isEmpty() || !updateEmail.isBlank()) {
+                    if (!updateEmail.isEmpty() && !updateEmail.isBlank()) {
+
+                        boolean isValidEmail = utils.InputValidator.isValideUpdateEmail(updateEmail);
+                        if (isValidEmail) {
+                        continue;
+                        }
 
                         // update email only
-                        updateContactNumber(map, sc, searchContact, updateNumber);
+                        updateContactNumber(map, sc, searchContact, updateEmail);
                     }
 
                     isCorrectInput = false;
 
                 } else {
-
-                    // boolean isValidName = utils.InputValidator.isValideUpdateName(updateName);
-                    // if (!isValidName) {
-                    // continue;
-                    // }
-
-                    // boolean isValidNum = utils.InputValidator.isValideUpdateNumber(updateNumber);
-                    // if (isValidNum) {
-                    // continue;
-                    // }
-
-                    // boolean isValidEmail = utils.InputValidator.isValideUpdateEmail(updateEmail);
-                    // if (isValidEmail) {
-                    // continue;
-                    // }
-
                     return;
                 }
             }
@@ -158,15 +155,12 @@ public class Contact {
     public static void updateContact(HashMap<String, Contact> map, Scanner sc, String searchContact, String updateName,
             String updateNumber,
             String updateEmail) {
-        String oldName = searchContact;
-        Contact oldValue = map.get( searchContact);
 
         if (map.containsKey(searchContact)) {
 
-            map.remove(oldName);
-            map.remove(oldValue);
-
             Contact c = map.get(searchContact);
+            map.remove(searchContact);
+
             c.phoneNumber = updateNumber;
             c.eMail = updateEmail;
             map.put(updateName, c);
@@ -176,23 +170,24 @@ public class Contact {
                             + " SUCESSFULLY UPDATED.-----");
 
         }
+
     }
 
     public static void updateContactName(HashMap<String, Contact> map, Scanner sc, String searchContact,
             String updateName) {
-        String oldName = searchContact;
+        
 
         if (map.containsKey(searchContact)) {
-            map.remove(oldName);
+             
 
             Contact c = map.get(searchContact);
-            map.put(updateName, c);
-            searchContact = updateName;
-
+            map.remove( searchContact);
+            map.put(updateName.toLowerCase(), c);
+ 
             System.out.println("\n-----NAME : " + updateName
                     + " SUCESSFULLY UPDATED.-----");
         }
-        ///// fix this all 3 update function
+         
     }
 
     public static void updateContactNumber(HashMap<String, Contact> map, Scanner sc, String searchContact,
@@ -202,7 +197,7 @@ public class Contact {
 
             Contact c = map.get(searchContact);
             c.phoneNumber = updateNumber;
-            map.put(searchContact, c);
+            
             System.out.println("\n-----NUMBER : " + updateNumber
                     + " SUCESSFULLY UPDATED.-----");
 
@@ -214,8 +209,8 @@ public class Contact {
         if (map.containsKey(searchContact)) {
             Contact c = map.get(searchContact);
             c.eMail = updateEmail;
-            map.put(searchContact, c);
-            viewContact(map);
+            
+           
             System.out.println("\n-----EMAIL : " + updateEmail
                     + " SUCESSFULLY UPDATED.-----");
 
@@ -223,8 +218,9 @@ public class Contact {
     }
 
     public static void deleteContact(HashMap<String, Contact> map, String searchContact) {
-        map.remove(searchContact);
+
         if (map.remove(searchContact, map)) {
+            map.remove(searchContact);
             System.out.println("----" + searchContact + " CONTACT DELETED.----");
         } else {
             System.out.println("-----CONTACT NOT FOUND----");
