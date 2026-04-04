@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String, Contact> map = new HashMap<>();
-
-        while (true) {
+        try {
+             while (true) {
 
             System.out.println("""
                     \n----CONTACT BOOK-----
@@ -28,6 +28,11 @@ public class Main {
             // continue;
 
         }
+        } catch (Exception e) {
+          System.out.println("<<<<<<<<<<<<<<EXCEPTION HANDLED>>>>>>>>>>>>>>>>>>>>>");
+        }
+
+        
 
     }
 }
