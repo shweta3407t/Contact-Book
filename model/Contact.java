@@ -8,7 +8,7 @@ import  service.ContactService;
 
 public class Contact {
 
-    public static void controlContact(HashMap<String, Contact> map, String choice) {
+    public static void controlContact(HashMap<String, ContactService> map, String choice) {
         Scanner sc = new Scanner(System.in);
        
 
