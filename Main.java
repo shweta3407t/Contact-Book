@@ -1,13 +1,13 @@
 import java.util.HashMap;
 import java.util.Scanner;
 
-import service.Contact;
+import service.ContactService;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        HashMap<String, Contact> map = new HashMap<>();
+        HashMap<String, ContactService> map = new HashMap<>();
         try {
              while (true) {
 
@@ -24,7 +24,7 @@ public class Main {
             System.out.print("YOUR CHOICE : ");
             String choice = sc.nextLine().toLowerCase();
 
-            model.ContactService.controlContact(map, choice);
+            model.Contact.controlContact(map, choice);
             // continue;
 
         }

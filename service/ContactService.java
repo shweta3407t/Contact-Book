@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Contact {
+public class ContactService {
 
     String phoneNumber;
     String eMail;
 
-    public Contact(String phoneNumber, String eMail) {
+    public ContactService(String phoneNumber, String eMail) {
         this.phoneNumber = phoneNumber;
         this.eMail = eMail;
     }
@@ -21,20 +21,20 @@ public class Contact {
         System.out.println("---------------------------");
     }
 
-    public static void addContact(HashMap<String, Contact> map, String name, String phoneNumber, String email) {
-        Contact c = new Contact(phoneNumber, email);
+    public static void addContact(HashMap<String, ContactService> map, String name, String phoneNumber, String email) {
+        ContactService c = new ContactService(phoneNumber, email);
         map.put(name, c);
         System.out.println("------" + name + "  CONTACT  SUCESSFULLY ADDED.------");
 
     }
 
-    public static void viewContact(HashMap<String, Contact> map) {
+    public static void viewContact(HashMap<String, ContactService> map) {
         if (map.isEmpty()) {
             System.out.println("-----NO CONTACT ADDED-----");
 
         } else {
 
-            for (Map.Entry<String, Contact> e : map.entrySet()) {
+            for (Map.Entry<String, ContactService> e : map.entrySet()) {
                 if (e.getValue() != null) {
                     e.getValue().display(e.getKey());
 
@@ -47,7 +47,7 @@ public class Contact {
 
     }
 
-    public static void searchContact(HashMap<String, Contact> map, Scanner sc, String searchContact) {
+    public static void searchContact(HashMap<String, ContactService> map, Scanner sc, String searchContact) {
         if (map.containsKey(searchContact)) {
             System.out.println("-------CONTACT FOUND.-----");
             map.get(searchContact).display(searchContact);
@@ -152,13 +152,13 @@ public class Contact {
         }
     }
 
-    public static void updateContact(HashMap<String, Contact> map, Scanner sc, String searchContact, String updateName,
+    public static void updateContact(HashMap<String, ContactService> map, Scanner sc, String searchContact, String updateName,
             String updateNumber,
             String updateEmail) {
 
         if (map.containsKey(searchContact)) {
 
-            Contact c = map.get(searchContact);
+            ContactService c = map.get(searchContact);
             map.remove(searchContact);
 
             c.phoneNumber = updateNumber;
@@ -173,14 +173,14 @@ public class Contact {
 
     }
 
-    public static void updateContactName(HashMap<String, Contact> map, Scanner sc, String searchContact,
+    public static void updateContactName(HashMap<String, ContactService> map, Scanner sc, String searchContact,
             String updateName) {
         
 
         if (map.containsKey(searchContact)) {
              
 
-            Contact c = map.get(searchContact);
+            ContactService c = map.get(searchContact);
             map.remove( searchContact);
             map.put(updateName.toLowerCase(), c);
  
@@ -190,12 +190,12 @@ public class Contact {
          
     }
 
-    public static void updateContactNumber(HashMap<String, Contact> map, Scanner sc, String searchContact,
+    public static void updateContactNumber(HashMap<String, ContactService> map, Scanner sc, String searchContact,
             String updateNumber) {
 
         if (map.containsKey(searchContact)) {
 
-            Contact c = map.get(searchContact);
+            ContactService c = map.get(searchContact);
             c.phoneNumber = updateNumber;
             
             System.out.println("\n-----NUMBER : " + updateNumber
@@ -204,10 +204,10 @@ public class Contact {
         }
     }
 
-    public static void updateContactEmail(HashMap<String, Contact> map, Scanner sc, String searchContact,
+    public static void updateContactEmail(HashMap<String, ContactService> map, Scanner sc, String searchContact,
             String updateEmail) {
         if (map.containsKey(searchContact)) {
-            Contact c = map.get(searchContact);
+            ContactService c = map.get(searchContact);
             c.eMail = updateEmail;
             
            
@@ -217,7 +217,7 @@ public class Contact {
         }
     }
 
-    public static void deleteContact(HashMap<String, Contact> map, String searchContact) {
+    public static void deleteContact(HashMap<String, ContactService> map, String searchContact) {
 
         if (map.remove(searchContact, map)) {
             map.remove(searchContact);

@@ -4,9 +4,9 @@ package model;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import  service.Contact;
+import  service.ContactService;
 
-public class ContactService {
+public class Contact {
 
     public static void controlContact(HashMap<String, Contact> map, String choice) {
         Scanner sc = new Scanner(System.in);
@@ -52,7 +52,7 @@ public class ContactService {
 
                     // map.put(name, c);
 
-                     service.Contact.addContact(map, name.toLowerCase(), phoneNumber, eMail);
+                     service.ContactService.addContact(map, name.toLowerCase(), phoneNumber, eMail);
 
                  
 
@@ -63,20 +63,20 @@ public class ContactService {
 
             case "v":
                 System.out.println("-------ALL CONTACT LIST------");
-                 service.Contact.viewContact(map);
+                 service.ContactService.viewContact(map);
 
                  
                 break;
             case "s":
                 System.out.print("ENTER  NAME TO SEARCH CONTACT :");
                 String contact = sc.nextLine().toLowerCase();
-                 service.Contact.searchContact(map, sc, contact);
+                 service.ContactService.searchContact(map, sc, contact);
               
                 break;
             case "d":
                 System.out.println("ENTER  NAME TO DELETE CONTECT.");
                 String dContact = sc.nextLine();
-                 service.Contact.deleteContact(map, dContact);
+                 service.ContactService.deleteContact(map, dContact);
                 
                 break;
 
